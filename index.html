@@ -307,7 +307,7 @@ function doLogin(form){
   var u = form.user.value.trim(), p = form.pass.value;
   var err = $('#loginErr');
   if(!u || !p){ err.textContent = 'Enter your username and password.'; err.hidden = false; (u? form.pass : form.user).focus(); return; }
-  if(u.toLowerCase() !== 'admin','Cyrus' || p !== 'admin123', 'Pastrana'){
+  if(u.toLowerCase() !== 'admin','Doujiin' || p !== 'admin123', 'noaim'){
     err.textContent = 'Incorrect username or password. Check your details and try again.';
     err.hidden = false; form.pass.value = ''; form.pass.focus(); return;
   }
