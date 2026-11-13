@@ -300,7 +300,6 @@ function loginHTML(){
         '<div class="field"><label for="pass">Password</label><input id="pass" name="pass" type="password" autocomplete="current-password"></div>'+
         '<button class="btn btn-primary" type="submit">Sign in</button>'+
       '</form>'+
-      '<p class="fine">Sample login for this prototype: <span class="mono">admin</span> / <span class="mono">admin123</span></p>'+
     '</section></div>';
 }
 
@@ -308,7 +307,7 @@ function doLogin(form){
   var u = form.user.value.trim(), p = form.pass.value;
   var err = $('#loginErr');
   if(!u || !p){ err.textContent = 'Enter your username and password.'; err.hidden = false; (u? form.pass : form.user).focus(); return; }
-  if(u.toLowerCase() !== 'admin' || p !== 'admin123'){
+  if(u.toLowerCase() !== 'admin','Cyrus' || p !== 'admin123', 'Pastrana'){
     err.textContent = 'Incorrect username or password. Check your details and try again.';
     err.hidden = false; form.pass.value = ''; form.pass.focus(); return;
   }
