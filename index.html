@@ -251,26 +251,26 @@ var intf = function(n){ return Number(n).toLocaleString('en-US'); };
 var S = {
   authed:false, view:'dashboard', notice:'',
   users:[
-    {id:'U-1001',name:'Maria Santos',email:'maria.santos@example.com',role:'Customer',status:'Active',joined:'2025-03-14',history:[['2026-10-30','Placed order #1041'],['2026-09-12','Changed delivery address'],['2025-03-14','Account created']]},
+    {id:'U-1001',name:'Clint Lim',email:'Limvlr@example.com',role:'Assistant Manager',status:'Active',joined:'2025-03-14',history:[['2025-10-30','Generated Sales Revenue report'],['2026-09-12','Promoted to Assistant Manager'],['2025-03-14','Account created']]},
     {id:'U-1002',name:'Jose Reyes',email:'jose.reyes@example.com',role:'Customer',status:'Active',joined:'2025-05-02',history:[['2026-11-01','Placed order #1043'],['2026-08-21','Reset password'],['2025-05-02','Account created']]},
     {id:'U-1003',name:'Ana Cruz',email:'ana.cruz@example.com',role:'Staff',status:'Active',joined:'2024-11-19',history:[['2026-11-02','Updated order #1040 to Ready'],['2026-10-15','Edited menu item Barako Brew'],['2024-11-19','Account created']]},
-    {id:'U-1004',name:'Miguel Dela Cruz',email:'miguel.delacruz@example.com',role:'Manager',status:'Active',joined:'2024-02-07',history:[['2026-10-31','Generated Sales Revenue report'],['2026-10-01','Promoted to Manager'],['2024-02-07','Account created']]},
+    {id:'U-1004',name:'Cyrus Pastrana',email:'CyrusPastrana25@example.com',role:'Manager',status:'Active',joined:'2023-02-07',history:[['2024-10-31','Generated Sales Revenue report'],['2026-10-01','Promoted to Manager'],['2024-02-07','Account created']]},
     {id:'U-1005',name:'Carla Mendoza',email:'carla.mendoza@example.com',role:'Customer',status:'Suspended',joined:'2025-07-30',history:[['2026-10-18','Account suspended after payment dispute'],['2026-10-10','Placed order #1029'],['2025-07-30','Account created']]},
     {id:'U-1006',name:'Paolo Garcia',email:'paolo.garcia@example.com',role:'Customer',status:'Active',joined:'2026-01-12',history:[['2026-10-29','Placed order #1038'],['2026-01-12','Account created']]},
-    {id:'U-1007',name:'Liza Ramos',email:'liza.ramos@example.com',role:'Staff',status:'Active',joined:'2025-09-04',history:[['2026-11-02','Updated order #1042 to Preparing'],['2025-09-04','Account created']]},
+    {id:'U-1007',name:'Franco Teves',email:'blackforest@example.com',role:'Customer',status:'Active',joined:'2025-09-04',history:[['2026-11-02','Updated order #1042 to Preparing'],['2025-09-04','Account created']]},
     {id:'U-1008',name:'Daniel Bautista',email:'daniel.bautista@example.com',role:'Customer',status:'Active',joined:'2026-04-22',history:[['2026-11-03','Placed order #1045'],['2026-04-22','Account created']]},
     {id:'U-1009',name:'Grace Villanueva',email:'grace.villanueva@example.com',role:'Customer',status:'Suspended',joined:'2025-12-09',history:[['2026-09-27','Account suspended by admin'],['2025-12-09','Account created']]},
-    {id:'U-1010',name:'Rico Navarro',email:'rico.navarro@example.com',role:'Customer',status:'Active',joined:'2026-06-15',history:[['2026-10-26','Placed order #1036'],['2026-06-15','Account created']]}
+    {id:'U-1010',name:'Sean Bustillos',email:'seanbustillos@example.com',role:'Staff',status:'Active',joined:'2026-06-15',history:[['2026-10-26','Placed order #1036'],['2026-06-15','Account created']]}
   ],
   orders:[
-    {id:'1045',customer:'Daniel Bautista',items:'Spanish Latte, Ensaymada',total:245,status:'Pending',time:'1:52 PM'},
-    {id:'1044',customer:'Maria Santos',items:'Cappuccino, Banana Bread',total:225,status:'Pending',time:'1:40 PM'},
-    {id:'1043',customer:'Jose Reyes',items:'Cold Brew x2, Ube Cheese Pandesal',total:370,status:'Preparing',time:'1:15 PM'},
-    {id:'1042',customer:'Rico Navarro',items:'Barako Brew, Ensaymada',total:195,status:'Preparing',time:'12:58 PM'},
-    {id:'1041',customer:'Maria Santos',items:'Café Latte, Banana Bread',total:235,status:'Ready',time:'12:30 PM'},
-    {id:'1040',customer:'Paolo Garcia',items:'Spanish Latte x2, Ube Cheese Pandesal',total:390,status:'Completed',time:'11:48 AM'},
-    {id:'1039',customer:'Liza Ramos',items:'Espresso, Matcha Latte',total:240,status:'Completed',time:'11:20 AM'},
-    {id:'1038',customer:'Paolo Garcia',items:'Iced Caramel Macchiato',total:165,status:'Cancelled',time:'10:55 AM'}
+    {id:'1045',customer:'Cyrus Pastrana',items:'Spanish Latte, Ensaymada',total:245,status:'Pending',time:'1:52 PM'},
+    {id:'1044',customer:'Sean Bustillos',items:'Cappuccino, Banana Bread',total:225,status:'Pending',time:'1:40 PM'},
+    {id:'1043',customer:'Clint Limbert',items:'Cold Brew x2, Ube Cheese Pandesal',total:370,status:'Preparing',time:'1:15 PM'},
+    {id:'1042',customer:'Inde Navarette',items:'Barako Brew, Ensaymada',total:195,status:'Preparing',time:'12:58 PM'},
+    {id:'1041',customer:'Kenneth Matnog',items:'Café Latte, Banana Bread',total:235,status:'Ready',time:'12:30 PM'},
+    {id:'1040',customer:'Johnathan Olvis',items:'Spanish Latte x2, Ube Cheese Pandesal',total:390,status:'Completed',time:'11:48 AM'},
+    {id:'1039',customer:'Kenji Galleso',items:'Espresso, Matcha Latte',total:240,status:'Completed',time:'11:20 AM'},
+    {id:'1038',customer:'Benjamin Tan',items:'Iced Caramel Macchiato',total:165,status:'Cancelled',time:'10:55 AM'}
   ],
   menu:[
     {id:'M-01',name:'Espresso',category:'Hot Coffee',price:90,stock:40,available:true},
