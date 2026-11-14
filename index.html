@@ -94,6 +94,21 @@ textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius
 .notice{color:var(--good);background:var(--good-soft);border-radius:6px;padding:9px 12px;font-size:14px}
 .check{display:flex;align-items:center;gap:8px;font-size:14px}
 .check input{width:18px;height:18px;accent-color:var(--accent)}
+.btn-danger{border-color:var(--bad);color:var(--bad);background:transparent}
+.btn-danger:hover{background:var(--bad-soft)}
+.btn-danger-solid{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.btn-danger-solid:hover{background:var(--bad);filter:brightness(.92)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.panel.warn{border-color:var(--bad)}
+.head-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.pw{position:relative}
+.pw input{padding-right:72px}
+.pwtoggle{position:absolute;right:3px;top:50%;transform:translateY(-50%)}
+.caps{color:var(--warn);font-weight:500}
+input[aria-invalid=true]{border-color:var(--bad)}
+.demo{font-size:12px;color:var(--muted)}
+.demo summary{cursor:pointer;width:max-content}
+.demo p{margin-top:6px}
 
 /* shell */
 .app{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:232px minmax(0,1fr);gap:20px;align-items:start}
@@ -102,6 +117,8 @@ textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius
 .bname{font-family:var(--font-display);font-weight:700;font-size:17px}
 .logo{display:block;height:auto;flex:none}
 .side .logo{width:84px;margin:2px auto 0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo{filter:drop-shadow(0 0 1.5px #fcf0d8) drop-shadow(0 0 8px rgba(252,240,216,.22))}}
+:root[data-theme="dark"] .logo{filter:drop-shadow(0 0 1.5px #fcf0d8) drop-shadow(0 0 8px rgba(252,240,216,.22))}
 .nav{display:flex;flex-direction:column;gap:2px}
 .nav button{text-align:left;border:0;background:transparent;padding:9px 11px;border-radius:6px;cursor:pointer;font-weight:500;color:var(--fg)}
 .nav button:hover{background:var(--surface-2)}
@@ -227,7 +244,7 @@ try{
 /* ---------- sample data (stands in for the database) ---------- */
 var LOW = 5;
 var STATUSES = ['Pending','Preparing','Ready','Completed','Cancelled'];
-var CATEGORIES = ['Mains','Sides','Drinks','Desserts'];
+var CATEGORIES = ['Hot Coffee','Iced Coffee','Non-Coffee','Pastries','Merch'];
 var peso = function(n){ return '₱' + Math.round(n).toLocaleString('en-US'); };
 var intf = function(n){ return Number(n).toLocaleString('en-US'); };
 
@@ -236,7 +253,7 @@ var S = {
   users:[
     {id:'U-1001',name:'Maria Santos',email:'maria.santos@example.com',role:'Customer',status:'Active',joined:'2025-03-14',history:[['2026-10-30','Placed order #1041'],['2026-09-12','Changed delivery address'],['2025-03-14','Account created']]},
     {id:'U-1002',name:'Jose Reyes',email:'jose.reyes@example.com',role:'Customer',status:'Active',joined:'2025-05-02',history:[['2026-11-01','Placed order #1043'],['2026-08-21','Reset password'],['2025-05-02','Account created']]},
-    {id:'U-1003',name:'Ana Cruz',email:'ana.cruz@example.com',role:'Staff',status:'Active',joined:'2024-11-19',history:[['2026-11-02','Updated order #1040 to Ready'],['2026-10-15','Edited menu item Club Sandwich'],['2024-11-19','Account created']]},
+    {id:'U-1003',name:'Ana Cruz',email:'ana.cruz@example.com',role:'Staff',status:'Active',joined:'2024-11-19',history:[['2026-11-02','Updated order #1040 to Ready'],['2026-10-15','Edited menu item Barako Brew'],['2024-11-19','Account created']]},
     {id:'U-1004',name:'Miguel Dela Cruz',email:'miguel.delacruz@example.com',role:'Manager',status:'Active',joined:'2024-02-07',history:[['2026-10-31','Generated Sales Revenue report'],['2026-10-01','Promoted to Manager'],['2024-02-07','Account created']]},
     {id:'U-1005',name:'Carla Mendoza',email:'carla.mendoza@example.com',role:'Customer',status:'Suspended',joined:'2025-07-30',history:[['2026-10-18','Account suspended after payment dispute'],['2026-10-10','Placed order #1029'],['2025-07-30','Account created']]},
     {id:'U-1006',name:'Paolo Garcia',email:'paolo.garcia@example.com',role:'Customer',status:'Active',joined:'2026-01-12',history:[['2026-10-29','Placed order #1038'],['2026-01-12','Account created']]},
@@ -246,29 +263,31 @@ var S = {
     {id:'U-1010',name:'Rico Navarro',email:'rico.navarro@example.com',role:'Customer',status:'Active',joined:'2026-06-15',history:[['2026-10-26','Placed order #1036'],['2026-06-15','Account created']]}
   ],
   orders:[
-    {id:'1045',customer:'Daniel Bautista',items:'Beef Burger, Fries, Iced Tea',total:385,status:'Pending',time:'1:52 PM'},
-    {id:'1044',customer:'Maria Santos',items:'Pasta Carbonara, Caesar Salad',total:410,status:'Pending',time:'1:40 PM'},
-    {id:'1043',customer:'Jose Reyes',items:'Chicken Rice Bowl x2, Milkshake',total:520,status:'Preparing',time:'1:15 PM'},
-    {id:'1042',customer:'Rico Navarro',items:'Club Sandwich, Brewed Coffee',total:290,status:'Preparing',time:'12:58 PM'},
-    {id:'1041',customer:'Maria Santos',items:'Caesar Salad, Iced Tea',total:215,status:'Ready',time:'12:30 PM'},
-    {id:'1040',customer:'Paolo Garcia',items:'Beef Burger x2, Fries',total:610,status:'Completed',time:'11:48 AM'},
-    {id:'1039',customer:'Liza Ramos',items:'Chocolate Cake, Brewed Coffee',total:255,status:'Completed',time:'11:20 AM'},
-    {id:'1038',customer:'Paolo Garcia',items:'Pasta Carbonara',total:260,status:'Cancelled',time:'10:55 AM'}
+    {id:'1045',customer:'Daniel Bautista',items:'Spanish Latte, Ensaymada',total:245,status:'Pending',time:'1:52 PM'},
+    {id:'1044',customer:'Maria Santos',items:'Cappuccino, Banana Bread',total:225,status:'Pending',time:'1:40 PM'},
+    {id:'1043',customer:'Jose Reyes',items:'Cold Brew x2, Ube Cheese Pandesal',total:370,status:'Preparing',time:'1:15 PM'},
+    {id:'1042',customer:'Rico Navarro',items:'Barako Brew, Ensaymada',total:195,status:'Preparing',time:'12:58 PM'},
+    {id:'1041',customer:'Maria Santos',items:'Café Latte, Banana Bread',total:235,status:'Ready',time:'12:30 PM'},
+    {id:'1040',customer:'Paolo Garcia',items:'Spanish Latte x2, Ube Cheese Pandesal',total:390,status:'Completed',time:'11:48 AM'},
+    {id:'1039',customer:'Liza Ramos',items:'Espresso, Matcha Latte',total:240,status:'Completed',time:'11:20 AM'},
+    {id:'1038',customer:'Paolo Garcia',items:'Iced Caramel Macchiato',total:165,status:'Cancelled',time:'10:55 AM'}
   ],
   menu:[
-    {id:'M-01',name:'Chicken Rice Bowl',category:'Mains',price:195,stock:24,available:true},
-    {id:'M-02',name:'Beef Burger',category:'Mains',price:240,stock:18,available:true},
-    {id:'M-03',name:'Pasta Carbonara',category:'Mains',price:260,stock:4,available:true},
-    {id:'M-04',name:'Club Sandwich',category:'Mains',price:210,stock:12,available:true},
-    {id:'M-05',name:'Caesar Salad',category:'Sides',price:155,stock:9,available:true},
-    {id:'M-06',name:'Fries',category:'Sides',price:95,stock:40,available:true},
-    {id:'M-07',name:'Iced Tea',category:'Drinks',price:60,stock:3,available:true},
-    {id:'M-08',name:'Brewed Coffee',category:'Drinks',price:85,stock:30,available:true},
-    {id:'M-09',name:'Milkshake',category:'Drinks',price:130,stock:0,available:false},
-    {id:'M-10',name:'Chocolate Cake',category:'Desserts',price:170,stock:7,available:true}
+    {id:'M-01',name:'Espresso',category:'Hot Coffee',price:90,stock:40,available:true},
+    {id:'M-02',name:'Cappuccino',category:'Hot Coffee',price:130,stock:28,available:true},
+    {id:'M-03',name:'Café Latte',category:'Hot Coffee',price:140,stock:22,available:true},
+    {id:'M-04',name:'Barako Brew',category:'Hot Coffee',price:110,stock:4,available:true},
+    {id:'M-05',name:'Spanish Latte',category:'Iced Coffee',price:160,stock:18,available:true},
+    {id:'M-06',name:'Cold Brew',category:'Iced Coffee',price:150,stock:3,available:true},
+    {id:'M-07',name:'Iced Caramel Macchiato',category:'Iced Coffee',price:165,stock:0,available:false},
+    {id:'M-08',name:'Matcha Latte',category:'Non-Coffee',price:150,stock:15,available:true},
+    {id:'M-09',name:'Ensaymada',category:'Pastries',price:85,stock:12,available:true},
+    {id:'M-10',name:'Banana Bread',category:'Pastries',price:95,stock:6,available:true},
+    {id:'M-11',name:'Ube Cheese Pandesal',category:'Pastries',price:70,stock:9,available:true},
+    {id:'M-12',name:'Kape ng Bayan Tumbler',category:'Merch',price:650,stock:8,available:true}
   ],
   uv:{mode:'list',id:null,q:'',role:'all',status:'all'},
-  om:{tab:'orders',showAll:false,editOrder:null,editMenu:null},
+  om:freshOM(),
   rp:{step:1,range:'Weekly',type:'Sales Revenue',result:null,exp:null}
 };
 
@@ -280,6 +299,13 @@ var today = function(){ return new Date().toISOString().slice(0,10); };
 var PILL = {Active:'good',Suspended:'bad',Pending:'warn',Preparing:'info',Ready:'good',Completed:'neutral',Cancelled:'bad',Available:'good',Unavailable:'neutral','Low stock':'warn'};
 var pill = function(t){ return '<span class="pill '+(PILL[t]||'neutral')+'">'+esc(t)+'</span>'; };
 var menuState = function(m){ return !m.available ? 'Unavailable' : (m.stock<=LOW ? 'Low stock' : 'Available'); };
+
+function freshOM(){ return {tab:'orders',oq:'',ostatus:'active',mq:'',mcat:'all',mstock:'all',editOrder:null,editMenu:null,del:false}; }
+function nextId(list,prefix,width){
+  var n = list.reduce(function(a,x){ return Math.max(a,Number(x.id.slice(prefix.length))||0); },0)+1, t = String(n);
+  while(t.length<width) t = '0'+t;
+  return prefix+t;
+}
 
 function toast(msg){
   var box = $('#toasts'); var t = document.createElement('div');
@@ -296,31 +322,77 @@ function loginHTML(){
       (S.notice ? '<div class="notice" role="status">'+esc(S.notice)+'</div>' : '')+
       '<form id="loginForm" novalidate>'+
         '<div class="err" id="loginErr" role="alert" hidden></div>'+
-        '<div class="field"><label for="user">Username</label><input id="user" name="user" type="text" autocomplete="username" autocapitalize="none"></div>'+
-        '<div class="field"><label for="pass">Password</label><input id="pass" name="pass" type="password" autocomplete="current-password"></div>'+
-        '<button class="btn btn-primary" type="submit">Sign in</button>'+
+        '<div class="field"><label for="user">Username</label><input id="user" name="user" type="text" autocomplete="username" autocapitalize="none" aria-describedby="loginErr"></div>'+
+        '<div class="field"><label for="pass">Password</label>'+
+          '<div class="pw"><input id="pass" name="pass" type="password" autocomplete="current-password" aria-describedby="loginErr capsNote"><button class="btn btn-quiet pwtoggle" type="button" data-act="pw-toggle" aria-controls="pass" aria-pressed="false" aria-label="Show password">Show</button></div>'+
+          '<p class="fine caps" id="capsNote" hidden>Caps Lock is on.</p></div>'+
+        '<button class="btn btn-primary" id="loginBtn" type="submit">Sign in</button>'+
       '</form>'+
+      '<div><button class="btn btn-quiet" type="button" data-act="forgot" aria-expanded="false" aria-controls="forgotNote">Forgot password?</button><p class="fine" id="forgotNote" hidden>Password resets are handled by the shop owner. Ask them to reset your administrator account.</p></div>'+
+      '<details class="demo"><summary>Prototype sign-in details</summary><p>Username <span class="mono">admin</span>, password <span class="mono">admin123</span>. Remove this before going live.</p></details>'+
     '</section></div>';
 }
 
-function doLogin(form){
-  var u = form.user.value.trim(), p = form.pass.value;
+var LK = {fails:0, until:0, busy:false, timer:null};
+var MAX_TRIES = 5, LOCK_SECS = 30;
+function lockLeft(){ return Math.max(0, Math.ceil((LK.until-Date.now())/1000)); }
+function showLoginErr(msg,lock){
+  var err = $('#loginErr'); if(!err) return;
+  err.textContent = msg; err.hidden = false;
+  if(lock) err.setAttribute('data-lock','1'); else err.removeAttribute('data-lock');
+}
+function clearLoginErr(){
   var err = $('#loginErr');
-  if(!u || !p){ err.textContent = 'Enter your username and password.'; err.hidden = false; (u? form.pass : form.user).focus(); return; }
-  if(u.toLowerCase() !== 'admin'|| p !== 'admin123'){
-    err.textContent = 'Incorrect username or password. Check your details and try again.';
-    err.hidden = false; form.pass.value = ''; form.pass.focus(); return;
+  if(err && !err.hasAttribute('data-lock')) err.hidden = true;
+  ['user','pass'].forEach(function(id){ var el = $('#'+id); if(el) el.removeAttribute('aria-invalid'); });
+}
+function paintLock(){
+  var btn = $('#loginBtn');
+  if(!btn){ clearInterval(LK.timer); LK.timer = null; return; }
+  var left = lockLeft();
+  if(left>0){ btn.disabled = true; btn.textContent = 'Try again in '+left+'s'; return; }
+  clearInterval(LK.timer); LK.timer = null; LK.fails = 0;
+  btn.disabled = false; btn.textContent = 'Sign in';
+  var err = $('#loginErr');
+  if(err && err.hasAttribute('data-lock')){ err.hidden = true; err.removeAttribute('data-lock'); }
+}
+
+function doLogin(form){
+  if(LK.busy || lockLeft()>0) return;
+  var u = form.user.value.trim(), p = form.pass.value, btn = $('#loginBtn');
+  clearLoginErr();
+  if(!u || !p){
+    showLoginErr('Enter your username and password.');
+    var bad = u ? form.pass : form.user; bad.setAttribute('aria-invalid','true'); bad.focus(); return;
   }
-  S.authed = true; S.notice = '';
-  S.view = hashView() || 'dashboard';
-  render(); window.scrollTo(0,0);
+  LK.busy = true; btn.disabled = true; btn.textContent = 'Signing in…';
+  setTimeout(function(){
+    LK.busy = false;
+    if(u.toLowerCase() === 'admin' && p === 'admin123'){
+      LK.fails = 0; S.authed = true; S.notice = '';
+      S.view = hashView() || 'dashboard';
+      render(); window.scrollTo(0,0); return;
+    }
+    LK.fails++;
+    form.pass.value = '';
+    form.user.setAttribute('aria-invalid','true'); form.pass.setAttribute('aria-invalid','true');
+    if(LK.fails >= MAX_TRIES){
+      LK.until = Date.now()+LOCK_SECS*1000;
+      showLoginErr('Too many failed attempts. Sign-in is paused for '+LOCK_SECS+' seconds.',true);
+      paintLock(); LK.timer = setInterval(paintLock,1000);
+      return;
+    }
+    var left = MAX_TRIES-LK.fails;
+    showLoginErr('Incorrect username or password. '+left+(left===1?' attempt':' attempts')+' left before sign-in pauses.');
+    btn.disabled = false; btn.textContent = 'Sign in'; form.pass.focus();
+  },450);
 }
 
 function logout(){
   /* Click Logout > Clear session tokens > End */
   S.authed = false; S.view = 'dashboard';
   S.uv = {mode:'list',id:null,q:'',role:'all',status:'all'};
-  S.om = {tab:'orders',showAll:false,editOrder:null,editMenu:null};
+  S.om = freshOM();
   S.rp = {step:1,range:'Weekly',type:'Sales Revenue',result:null,exp:null};
   S.notice = 'You have been signed out and your session was cleared.';
   try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
@@ -356,8 +428,8 @@ function dashHTML(){
   var susp = S.users.filter(function(u){return u.status==='Suspended';}).length;
   var active = S.users.filter(function(u){return u.status==='Active';}).length;
   var attn = [];
-  if(pending) attn.push('<li><span><strong>'+pending+'</strong> '+(pending===1?'order is':'orders are')+' waiting to be prepared</span><button class="btn btn-quiet" data-act="dash-go" data-view="orders" data-tab="orders">Review orders</button></li>');
-  if(low) attn.push('<li><span><strong>'+low+'</strong> menu '+(low===1?'item is':'items are')+' low or out of stock</span><button class="btn btn-quiet" data-act="dash-go" data-view="orders" data-tab="menu">Check inventory</button></li>');
+  if(pending) attn.push('<li><span><strong>'+pending+'</strong> '+(pending===1?'order is':'orders are')+' waiting to be prepared</span><button class="btn btn-quiet" data-act="dash-go" data-view="orders" data-tab="orders" data-ostatus="Pending">Review orders</button></li>');
+  if(low) attn.push('<li><span><strong>'+low+'</strong> menu '+(low===1?'item is':'items are')+' low or out of stock</span><button class="btn btn-quiet" data-act="dash-go" data-view="orders" data-tab="menu" data-mstock="low">Check inventory</button></li>');
   if(susp) attn.push('<li><span><strong>'+susp+'</strong> '+(susp===1?'account is':'accounts are')+' suspended</span><button class="btn btn-quiet" data-act="dash-go" data-view="users" data-ustatus="Suspended">View accounts</button></li>');
   if(!attn.length) attn.push('<li><span>Nothing needs attention right now.</span></li>');
   return '<div class="head"><h1>'+greet+', Admin</h1><p>Pick a module to continue. Everything below reflects the sample data in this prototype.</p></div>'+
@@ -368,8 +440,8 @@ function dashHTML(){
       '<div><dt>Active users</dt><dd>'+active+'</dd></div>'+
     '</dl>'+
     '<div class="modules">'+
-      '<section class="panel module"><h2>User Management</h2><p>View user records, filter them, and edit a profile.</p><button class="btn btn-primary" data-act="nav" data-view="users">Open users</button></section>'+
-      '<section class="panel module"><h2>Order &amp; Menu Records</h2><p>Update order status and edit menu items and stock.</p><button class="btn btn-primary" data-act="nav" data-view="orders">Open records</button></section>'+
+      '<section class="panel module"><h2>User Management</h2><p>Add, edit or remove users, and review each profile history.</p><button class="btn btn-primary" data-act="nav" data-view="users">Open users</button></section>'+
+      '<section class="panel module"><h2>Order &amp; Menu Records</h2><p>Search orders, update their status, and manage menu items and stock.</p><button class="btn btn-primary" data-act="nav" data-view="orders">Open records</button></section>'+
       '<section class="panel module"><h2>Generate Reports</h2><p>Choose a date range and report type, then export.</p><button class="btn btn-primary" data-act="nav" data-view="reports">Open reports</button></section>'+
     '</div>'+
     '<section class="panel"><h2>Needs attention</h2><ul class="attn">'+attn.join('')+'</ul></section>';
@@ -398,7 +470,8 @@ function drawUsers(){
   var c = $('#userCount'); if(c) c.textContent = filteredUsers().length+' of '+S.users.length+' users';
 }
 function usersHTML(){
-  var v = S.uv, u = S.users.find(function(x){return x.id===v.id;});
+  var v = S.uv, isNew = v.mode==='new';
+  var u = isNew ? {id:'',name:'',email:'',role:'Customer',status:'Active'} : S.users.find(function(x){return x.id===v.id;});
   if(v.mode==='profile' && u){
     return '<div class="head"><div><button class="btn btn-quiet" data-act="u-list">&larr; Back to list</button></div><h1>'+esc(u.name)+'</h1><p>Profile history for '+esc(u.id)+'.</p></div>'+
       '<section class="panel"><dl class="facts">'+
@@ -407,8 +480,14 @@ function usersHTML(){
         '<div class="row"><button class="btn" data-act="u-edit" data-id="'+u.id+'">Edit profile</button></div></section>'+
       '<section class="panel"><h2>History</h2><ul class="timeline">'+u.history.map(function(h){return '<li><time>'+esc(h[0])+'</time><span>'+esc(h[1])+'</span></li>';}).join('')+'</ul></section>';
   }
-  if(v.mode==='edit' && u){
-    return '<div class="head"><div><button class="btn btn-quiet" data-act="u-list">&larr; Back to list</button></div><h1>Edit '+esc(u.name)+'</h1><p>Changes are saved to the user database when you select Save changes.</p></div>'+
+  if((v.mode==='edit' || isNew) && u){
+    var del = '';
+    if(!isNew){
+      del = v.del
+        ? '<section class="panel warn" role="alertdialog" aria-labelledby="delT"><h3 id="delT">Delete '+esc(u.name)+'?</h3><p class="sub">This removes the account and its history. It cannot be undone.</p><div class="row"><button class="btn btn-danger-solid" data-act="u-del-yes">Yes, delete user</button><button class="btn" data-act="u-del-no">Keep user</button></div></section>'
+        : '<div class="row"><button class="btn btn-danger" data-act="u-del">Delete user</button></div>';
+    }
+    return '<div class="head"><div><button class="btn btn-quiet" data-act="u-list">&larr; Back to list</button></div><h1>'+(isNew?'Add user':'Edit '+esc(u.name))+'</h1><p>'+(isNew?'Create a customer, staff or manager account.':'Changes are saved to the user database when you select Save changes.')+'</p></div>'+
       '<form class="panel edit" id="userForm" novalidate>'+
         '<div class="err" id="formErr" role="alert" hidden></div>'+
         '<div class="grid2">'+
@@ -417,10 +496,10 @@ function usersHTML(){
           '<div class="field"><label for="f-role">Role</label><select id="f-role" name="role">'+['Customer','Staff','Manager'].map(function(r){return '<option'+(r===u.role?' selected':'')+'>'+r+'</option>';}).join('')+'</select></div>'+
           '<div class="field"><label for="f-status">Status</label><select id="f-status" name="status">'+['Active','Suspended'].map(function(r){return '<option'+(r===u.status?' selected':'')+'>'+r+'</option>';}).join('')+'</select></div>'+
         '</div>'+
-        '<div class="row"><button class="btn btn-primary" type="submit">Save changes</button><button class="btn" type="button" data-act="u-list">Cancel</button></div>'+
-      '</form>';
+        '<div class="row"><button class="btn btn-primary" type="submit">'+(isNew?'Create user':'Save changes')+'</button><button class="btn" type="button" data-act="u-list">Cancel</button></div>'+
+      '</form>'+del;
   }
-  return '<div class="head"><h1>User Management</h1><p>Search and filter user records. Open a profile history or edit a record.</p></div>'+
+  return '<div class="head"><div class="head-row"><h1>User Management</h1><button class="btn btn-primary" data-act="u-new">Add user</button></div><p>Search and filter user records. Open a profile history, edit a record or add a new user.</p></div>'+
     '<section class="panel"><div class="toolbar">'+
       '<div class="field"><label for="uq">Search</label><input id="uq" type="search" placeholder="Name, email or ID" value="'+esc(v.q)+'"></div>'+
       '<div class="field"><label for="urole">Role</label><select id="urole">'+[['all','All roles'],['Customer','Customer'],['Staff','Staff'],['Manager','Manager']].map(function(o){return '<option value="'+o[0]+'"'+(v.role===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></div>'+
@@ -429,37 +508,93 @@ function usersHTML(){
     '<div class="tablewrap"><table><thead><tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th><th></th></tr></thead><tbody id="userBody">'+userRows()+'</tbody></table></div>';
 }
 function saveUser(form){
-  var u = S.users.find(function(x){return x.id===S.uv.id;});
+  var isNew = S.uv.mode==='new';
+  var u = isNew ? null : S.users.find(function(x){return x.id===S.uv.id;});
   var name = form.name.value.trim(), email = form.email.value.trim(), err = $('#formErr');
   if(!name){ err.textContent='Enter the user’s full name.'; err.hidden=false; form.name.focus(); return; }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err.textContent='Enter a valid email address, for example name@example.com.'; err.hidden=false; form.email.focus(); return; }
-  u.name=name; u.email=email; u.role=form.role.value; u.status=form.status.value;
-  u.history.unshift([today(),'Profile updated by admin']);
-  S.uv.mode='list'; S.uv.id=null; render(); window.scrollTo(0,0);
-  toast('Saved. '+name+' was updated in the database.');
+  if(S.users.some(function(x){ return x!==u && x.email.toLowerCase()===email.toLowerCase(); })){ err.textContent='Another user already has this email address.'; err.hidden=false; form.email.focus(); return; }
+  if(isNew){
+    S.users.unshift({id:nextId(S.users,'U-',4),name:name,email:email,role:form.role.value,status:form.status.value,joined:today(),history:[[today(),'Account created by admin']]});
+    S.uv.q=''; S.uv.role='all'; S.uv.status='all';
+  } else {
+    u.name=name; u.email=email; u.role=form.role.value; u.status=form.status.value;
+    u.history.unshift([today(),'Profile updated by admin']);
+  }
+  S.uv.mode='list'; S.uv.id=null; S.uv.del=false; render(); window.scrollTo(0,0);
+  toast(isNew ? name+' was added as a new user.' : 'Saved. '+name+' was updated in the database.');
+}
+function deleteUser(){
+  var u = S.users.find(function(x){return x.id===S.uv.id;}); if(!u) return;
+  S.users = S.users.filter(function(x){return x!==u;});
+  S.uv.mode='list'; S.uv.id=null; S.uv.del=false; render(); window.scrollTo(0,0);
+  toast(u.name+' was deleted.');
 }
 
 /* ---------- orders and menu ---------- */
+var isActive = function(o){ return o.status!=='Completed' && o.status!=='Cancelled'; };
+function filteredOrders(){
+  var q = S.om.oq.toLowerCase(), st = S.om.ostatus;
+  return S.orders.filter(function(o){
+    var ok = st==='all' || (st==='active' ? isActive(o) : o.status===st);
+    return ok && (!q || ('#'+o.id+' '+o.customer+' '+o.items).toLowerCase().indexOf(q)>-1);
+  });
+}
+function orderRows(){
+  var list = filteredOrders();
+  if(!list.length) return '<tr><td colspan="6"><div class="empty">No orders match these filters. <button class="btn btn-quiet" data-act="o-clear">Reset filters</button></div></td></tr>';
+  return list.map(function(o){
+    return '<tr><td class="mono">#'+esc(o.id)+'</td><td><div class="strong">'+esc(o.customer)+'</div><div class="sub">'+esc(o.items)+'</div></td>'+
+      '<td class="num">'+peso(o.total)+'</td><td>'+pill(o.status)+'</td><td class="mono">'+esc(o.time)+'</td>'+
+      '<td class="actions"><button class="btn btn-quiet" data-act="om-order" data-id="'+o.id+'">Update status</button></td></tr>';
+  }).join('');
+}
+function drawOrders(){
+  var b = $('#orderBody'); if(b) b.innerHTML = orderRows();
+  var c = $('#orderCount'); if(c) c.textContent = filteredOrders().length+' of '+S.orders.length+' orders';
+}
 function ordersTab(){
-  var list = S.orders.filter(function(o){ return S.om.showAll || (o.status!=='Completed'&&o.status!=='Cancelled'); });
   var ed = S.orders.find(function(o){return o.id===S.om.editOrder;});
   var editor = ed ? '<form class="panel edit" id="orderForm">'+
       '<h3>Update order #'+esc(ed.id)+'</h3><p class="sub">'+esc(ed.customer)+' &middot; '+esc(ed.items)+'</p>'+
       '<div class="field" style="max-width:260px"><label for="o-status">Order status</label><select id="o-status" name="status">'+STATUSES.map(function(s){return '<option'+(s===ed.status?' selected':'')+'>'+s+'</option>';}).join('')+'</select></div>'+
       '<div class="row"><button class="btn btn-primary" type="submit">Update status</button><button class="btn" type="button" data-act="om-cancel">Cancel</button></div></form>' : '';
-  var rows = list.length ? list.map(function(o){
-    return '<tr><td class="mono">#'+esc(o.id)+'</td><td><div class="strong">'+esc(o.customer)+'</div><div class="sub">'+esc(o.items)+'</div></td>'+
-      '<td class="num">'+peso(o.total)+'</td><td>'+pill(o.status)+'</td><td class="mono">'+esc(o.time)+'</td>'+
-      '<td class="actions"><button class="btn btn-quiet" data-act="om-order" data-id="'+o.id+'">Update status</button></td></tr>';
-  }).join('') : '<tr><td colspan="6"><div class="empty">No active orders.</div></td></tr>';
+  var opts = [['active','Active orders'],['all','All orders']].concat(STATUSES.map(function(s){return [s,s];}));
   return editor+
-    '<label class="check"><input type="checkbox" id="showAll"'+(S.om.showAll?' checked':'')+'> Include completed and cancelled orders</label>'+
-    '<div class="tablewrap"><table><thead><tr><th>Order</th><th>Customer</th><th class="num">Total</th><th>Status</th><th>Time</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    '<section class="panel"><div class="toolbar">'+
+      '<div class="field"><label for="oq">Search</label><input id="oq" type="search" placeholder="Order number, customer or item" value="'+esc(S.om.oq)+'"></div>'+
+      '<div class="field"><label for="ostatus">Show</label><select id="ostatus">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(S.om.ostatus===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></div>'+
+    '</div><div class="sub" id="orderCount">'+filteredOrders().length+' of '+S.orders.length+' orders</div></section>'+
+    '<div class="tablewrap"><table><thead><tr><th>Order</th><th>Customer</th><th class="num">Total</th><th>Status</th><th>Time</th><th></th></tr></thead><tbody id="orderBody">'+orderRows()+'</tbody></table></div>';
+}
+
+function filteredMenu(){
+  var q = S.om.mq.toLowerCase();
+  return S.menu.filter(function(m){
+    return (S.om.mcat==='all' || m.category===S.om.mcat) &&
+           (S.om.mstock==='all' || m.stock<=LOW) &&
+           (!q || (m.name+' '+m.category).toLowerCase().indexOf(q)>-1);
+  });
+}
+function menuRows(){
+  var list = filteredMenu();
+  if(!list.length) return '<tr><td colspan="6"><div class="empty">No menu items match these filters. <button class="btn btn-quiet" data-act="m-clear">Reset filters</button></div></td></tr>';
+  return list.map(function(m){
+    return '<tr><td class="strong">'+esc(m.name)+'</td><td>'+esc(m.category)+'</td><td class="num">'+peso(m.price)+'</td><td class="num">'+m.stock+'</td><td>'+pill(menuState(m))+'</td>'+
+      '<td class="actions"><button class="btn btn-quiet" data-act="om-menu" data-id="'+m.id+'">Edit item</button></td></tr>';
+  }).join('');
+}
+function drawMenu(){
+  var b = $('#menuBody'); if(b) b.innerHTML = menuRows();
+  var c = $('#menuCount'); if(c) c.textContent = filteredMenu().length+' of '+S.menu.length+' items';
 }
 function menuTab(){
-  var ed = S.menu.find(function(m){return m.id===S.om.editMenu;});
-  var editor = ed ? '<form class="panel edit" id="menuForm" novalidate>'+
-      '<h3>Edit menu item</h3><div class="err" id="formErr" role="alert" hidden></div>'+
+  var isNew = S.om.editMenu==='new';
+  var ed = isNew ? {name:'',category:CATEGORIES[0],price:'',stock:'',available:true} : S.menu.find(function(m){return m.id===S.om.editMenu;});
+  var editor = '';
+  if(ed){
+    editor = '<form class="panel edit" id="menuForm" novalidate>'+
+      '<h3>'+(isNew?'Add menu item':'Edit menu item')+'</h3><div class="err" id="formErr" role="alert" hidden></div>'+
       '<div class="grid2">'+
         '<div class="field"><label for="m-name">Item name</label><input id="m-name" name="name" type="text" value="'+esc(ed.name)+'"></div>'+
         '<div class="field"><label for="m-cat">Category</label><select id="m-cat" name="category">'+CATEGORIES.map(function(c){return '<option'+(c===ed.category?' selected':'')+'>'+c+'</option>';}).join('')+'</select></div>'+
@@ -467,16 +602,28 @@ function menuTab(){
         '<div class="field"><label for="m-stock">Stock on hand</label><input id="m-stock" name="stock" type="number" min="0" step="1" value="'+ed.stock+'"></div>'+
       '</div>'+
       '<label class="check"><input type="checkbox" name="available"'+(ed.available?' checked':'')+'> Available to order</label>'+
-      '<div class="row"><button class="btn btn-primary" type="submit">Save update</button><button class="btn" type="button" data-act="om-cancel">Cancel</button></div></form>' : '';
-  var rows = S.menu.map(function(m){
-    return '<tr><td class="strong">'+esc(m.name)+'</td><td>'+esc(m.category)+'</td><td class="num">'+peso(m.price)+'</td><td class="num">'+m.stock+'</td><td>'+pill(menuState(m))+'</td>'+
-      '<td class="actions"><button class="btn btn-quiet" data-act="om-menu" data-id="'+m.id+'">Edit item</button></td></tr>';
-  }).join('');
-  return editor+'<div class="tablewrap"><table><thead><tr><th>Item</th><th>Category</th><th class="num">Price</th><th class="num">Stock</th><th>Availability</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+      '<div class="row"><button class="btn btn-primary" type="submit">'+(isNew?'Add to menu':'Save update')+'</button><button class="btn" type="button" data-act="om-cancel">Cancel</button></div></form>';
+    if(!isNew){
+      editor += S.om.del
+        ? '<section class="panel warn" role="alertdialog" aria-labelledby="delT"><h3 id="delT">Delete '+esc(ed.name)+'?</h3><p class="sub">This removes the item from the menu and from the Product Performance report. It cannot be undone.</p><div class="row"><button class="btn btn-danger-solid" data-act="m-del-yes">Yes, delete item</button><button class="btn" data-act="m-del-no">Keep item</button></div></section>'
+        : '<div class="row"><button class="btn btn-danger" data-act="m-del">Delete item</button></div>';
+    }
+  }
+  var cats = [['all','All categories']].concat(CATEGORIES.map(function(c){return [c,c];}));
+  var stocks = [['all','All stock levels'],['low','Low or out of stock']];
+  var sel = function(list,cur){ return list.map(function(o){return '<option value="'+o[0]+'"'+(cur===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join(''); };
+  return editor+
+    '<section class="panel"><div class="toolbar">'+
+      '<div class="field"><label for="mq">Search</label><input id="mq" type="search" placeholder="Item name or category" value="'+esc(S.om.mq)+'"></div>'+
+      '<div class="field"><label for="mcat">Category</label><select id="mcat">'+sel(cats,S.om.mcat)+'</select></div>'+
+      '<div class="field"><label for="mstock">Stock</label><select id="mstock">'+sel(stocks,S.om.mstock)+'</select></div>'+
+      '<div><button class="btn btn-primary" type="button" data-act="m-new">Add menu item</button></div>'+
+    '</div><div class="sub" id="menuCount">'+filteredMenu().length+' of '+S.menu.length+' items</div></section>'+
+    '<div class="tablewrap"><table><thead><tr><th>Item</th><th>Category</th><th class="num">Price</th><th class="num">Stock</th><th>Availability</th><th></th></tr></thead><tbody id="menuBody">'+menuRows()+'</tbody></table></div>';
 }
 function ordersHTML(){
-  var openN = S.orders.filter(function(o){return o.status!=='Completed'&&o.status!=='Cancelled';}).length;
-  return '<div class="head"><h1>Order &amp; Menu Records</h1><p>View active orders and menu inventory. Choose what to update: an order status or a menu item.</p></div>'+
+  var openN = S.orders.filter(isActive).length;
+  return '<div class="head"><h1>Order &amp; Menu Records</h1><p>Search orders and update their status, or add, edit and remove menu items.</p></div>'+
     '<div class="tabs" role="tablist">'+
       '<button role="tab" data-act="om-tab" data-tab="orders" aria-selected="'+(S.om.tab==='orders')+'">Active orders ('+openN+')</button>'+
       '<button role="tab" data-act="om-tab" data-tab="menu" aria-selected="'+(S.om.tab==='menu')+'">Menu inventory ('+S.menu.length+')</button>'+
@@ -488,13 +635,25 @@ function saveOrder(form){
   toast('Order #'+o.id+' is now '+o.status+'.');
 }
 function saveMenu(form){
-  var m = S.menu.find(function(x){return x.id===S.om.editMenu;}), err = $('#formErr');
+  var isNew = S.om.editMenu==='new';
+  var m = isNew ? null : S.menu.find(function(x){return x.id===S.om.editMenu;}), err = $('#formErr');
   var name = form.name.value.trim(), price = Number(form.price.value), stock = Number(form.stock.value);
   if(!name){ err.textContent='Enter an item name.'; err.hidden=false; form.name.focus(); return; }
+  if(S.menu.some(function(x){ return x!==m && x.name.toLowerCase()===name.toLowerCase(); })){ err.textContent='A menu item with this name already exists.'; err.hidden=false; form.name.focus(); return; }
   if(!(price>=0) || form.price.value===''){ err.textContent='Enter a price of zero or more.'; err.hidden=false; form.price.focus(); return; }
   if(!(stock>=0) || stock%1!==0 || form.stock.value===''){ err.textContent='Enter stock as a whole number of zero or more.'; err.hidden=false; form.stock.focus(); return; }
-  m.name=name; m.category=form.category.value; m.price=price; m.stock=stock; m.available=form.available.checked;
-  S.om.editMenu=null; render(); toast(name+' was saved to the menu.');
+  if(isNew){
+    S.menu.push({id:nextId(S.menu,'M-',2),name:name,category:form.category.value,price:price,stock:stock,available:form.available.checked});
+    S.om.mq=''; S.om.mcat='all'; S.om.mstock='all';
+  } else {
+    m.name=name; m.category=form.category.value; m.price=price; m.stock=stock; m.available=form.available.checked;
+  }
+  S.om.editMenu=null; S.om.del=false; render(); toast(name+(isNew?' was added to the menu.':' was saved to the menu.'));
+}
+function deleteMenu(){
+  var m = S.menu.find(function(x){return x.id===S.om.editMenu;}); if(!m) return;
+  S.menu = S.menu.filter(function(x){return x!==m;});
+  S.om.editMenu=null; S.om.del=false; render(); toast(m.name+' was removed from the menu.');
 }
 
 /* ---------- reports ---------- */
@@ -633,28 +792,50 @@ function go(v,o){
   o = o||{};
   S.view = v;
   if(v==='users'){ S.uv.mode='list'; S.uv.id=null; if(o.ustatus){ S.uv.status=o.ustatus; S.uv.role='all'; S.uv.q=''; } }
-  if(v==='orders'){ S.om.editOrder=null; S.om.editMenu=null; if(o.tab) S.om.tab=o.tab; }
+  if(v==='orders'){ S.om.editOrder=null; S.om.editMenu=null; S.om.del=false; if(o.tab) S.om.tab=o.tab; if(o.ostatus) S.om.ostatus=o.ostatus; if(o.mstock) S.om.mstock=o.mstock; }
   try{ location.hash = v; }catch(e){}
   render(); window.scrollTo(0,0);
 }
 
 /* ---------- events ---------- */
+function focusDelete(act){
+  var btn = $('[data-act='+act+']');
+  if(btn){ btn.focus(); if(btn.scrollIntoView) btn.scrollIntoView({block:'nearest'}); }
+}
 var app = $('#app');
 app.addEventListener('click',function(e){
   var b = e.target.closest('[data-act]'); if(!b) return;
   var d = b.dataset;
   switch(d.act){
     case 'nav': go(d.view); break;
-    case 'dash-go': go(d.view,{tab:d.tab,ustatus:d.ustatus}); break;
+    case 'dash-go': go(d.view,{tab:d.tab,ustatus:d.ustatus,ostatus:d.ostatus,mstock:d.mstock}); break;
     case 'logout': logout(); break;
-    case 'u-list': S.uv.mode='list'; S.uv.id=null; render(); window.scrollTo(0,0); break;
+    case 'u-list': S.uv.mode='list'; S.uv.id=null; S.uv.del=false; render(); window.scrollTo(0,0); break;
     case 'u-history': S.uv.mode='profile'; S.uv.id=d.id; render(); window.scrollTo(0,0); break;
-    case 'u-edit': S.uv.mode='edit'; S.uv.id=d.id; render(); window.scrollTo(0,0); break;
+    case 'u-edit': S.uv.mode='edit'; S.uv.id=d.id; S.uv.del=false; render(); window.scrollTo(0,0); break;
+    case 'u-new': S.uv.mode='new'; S.uv.id=null; S.uv.del=false; render(); window.scrollTo(0,0); break;
+    case 'u-del': S.uv.del=true; render(); focusDelete('u-del-no'); break;
+    case 'u-del-no': S.uv.del=false; render(); break;
+    case 'u-del-yes': deleteUser(); break;
+    case 'o-clear': S.om.oq=''; S.om.ostatus='active'; render(); break;
+    case 'm-clear': S.om.mq=''; S.om.mcat='all'; S.om.mstock='all'; render(); break;
+    case 'm-new': S.om.editMenu='new'; S.om.del=false; render(); window.scrollTo(0,0); break;
+    case 'm-del': S.om.del=true; render(); focusDelete('m-del-no'); break;
+    case 'm-del-no': S.om.del=false; render(); break;
+    case 'm-del-yes': deleteMenu(); break;
+    case 'pw-toggle': {
+      var pi = $('#pass'), show = pi.type==='password';
+      pi.type = show ? 'text' : 'password'; b.textContent = show ? 'Hide' : 'Show';
+      b.setAttribute('aria-pressed',String(show)); b.setAttribute('aria-label',show?'Hide password':'Show password'); pi.focus(); break;
+    }
+    case 'forgot': {
+      var fn = $('#forgotNote'); fn.hidden = !fn.hidden; b.setAttribute('aria-expanded',String(!fn.hidden)); break;
+    }
     case 'u-clear': S.uv.q=''; S.uv.role='all'; S.uv.status='all'; render(); break;
-    case 'om-tab': S.om.tab=d.tab; S.om.editOrder=null; S.om.editMenu=null; render(); break;
+    case 'om-tab': S.om.tab=d.tab; S.om.editOrder=null; S.om.editMenu=null; S.om.del=false; render(); break;
     case 'om-order': S.om.editOrder=d.id; render(); window.scrollTo(0,0); break;
-    case 'om-menu': S.om.editMenu=d.id; render(); window.scrollTo(0,0); break;
-    case 'om-cancel': S.om.editOrder=null; S.om.editMenu=null; render(); break;
+    case 'om-menu': S.om.editMenu=d.id; S.om.del=false; render(); window.scrollTo(0,0); break;
+    case 'om-cancel': S.om.editOrder=null; S.om.editMenu=null; S.om.del=false; render(); break;
     case 'rp-export-yes': S.rp.exp='choose'; S.rp.step=4; render(); break;
     case 'rp-export-skip': S.rp.exp='skipped'; S.rp.step=4; render(); break;
     case 'rp-fmt': S.rp.exp=d.fmt; S.rp.step=4; render(); break;
@@ -673,16 +854,29 @@ app.addEventListener('submit',function(e){
   else if(f.id==='rpForm') generate(f);
 });
 app.addEventListener('input',function(e){
-  if(e.target.id==='uq'){ S.uv.q = e.target.value; drawUsers(); }
+  var id = e.target.id;
+  if(id==='uq'){ S.uv.q = e.target.value; drawUsers(); }
+  else if(id==='oq'){ S.om.oq = e.target.value; drawOrders(); }
+  else if(id==='mq'){ S.om.mq = e.target.value; drawMenu(); }
+  else if(id==='user' || id==='pass'){ clearLoginErr(); }
 });
 app.addEventListener('change',function(e){
   var t = e.target;
   if(t.id==='urole'){ S.uv.role = t.value; drawUsers(); }
   else if(t.id==='ustatus'){ S.uv.status = t.value; drawUsers(); }
-  else if(t.id==='showAll'){ S.om.showAll = t.checked; render(); }
+  else if(t.id==='ostatus'){ S.om.ostatus = t.value; drawOrders(); }
+  else if(t.id==='mcat'){ S.om.mcat = t.value; drawMenu(); }
+  else if(t.id==='mstock'){ S.om.mstock = t.value; drawMenu(); }
   else if(t.name==='range' && t.form && t.form.id==='rpForm'){ S.rp.range = t.value; }
   else if(t.name==='type' && t.form && t.form.id==='rpForm'){ S.rp.type = t.value; }
 });
+function capsCheck(e){
+  if(e.target.id!=='pass' || !e.getModifierState) return;
+  var n = $('#capsNote'); if(n) n.hidden = !e.getModifierState('CapsLock');
+}
+app.addEventListener('keydown',capsCheck);
+app.addEventListener('keyup',capsCheck);
+app.addEventListener('focusout',function(e){ if(e.target.id==='pass'){ var n=$('#capsNote'); if(n) n.hidden=true; } });
 window.addEventListener('hashchange',function(){
   var v = hashView();
   if(S.authed && v && v!==S.view){ S.view=v; render(); }
